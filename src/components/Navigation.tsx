@@ -28,7 +28,7 @@ function NavItem({ icon, label, active, href }: NavItemProps) {
   const content = (
     <div
       className={cn(
-        "flex flex-col items-center gap-1 p-2 text-[#00ff00]",
+        "flex flex-col items-center gap-1 p-2 text-[#00ff00] font-['JetBrains_Mono',monospace]",
         active && "bg-[#001100] border border-[#003300]"
       )}
     >

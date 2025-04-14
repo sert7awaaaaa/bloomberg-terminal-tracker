@@ -1,6 +1,7 @@
 
 import { ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { formatLargeNumber } from "@/services/stockService";
 
 interface StockCardProps {
   symbol: string;
@@ -25,13 +26,6 @@ export function StockCard({
   timestamp,
   isMain = false
 }: StockCardProps) {
-  const formatLargeNumber = (num: number) => {
-    if (num >= 1e9) return `${(num / 1e9).toFixed(1)}B`;
-    if (num >= 1e6) return `${(num / 1e6).toFixed(1)}M`;
-    if (num >= 1e3) return `${(num / 1e3).toFixed(1)}K`;
-    return num.toString();
-  };
-
   const isPositive = percentChange >= 0;
   const priceDiff = Math.abs(price - prevClose);
 
@@ -41,18 +35,18 @@ export function StockCard({
       isMain && "border-l-2 border-l-[#00ff00]"
     )}>
       <div className="flex justify-between items-center mb-2">
-        <span className="text-xl font-bold text-[#00ff00]">{symbol}</span>
+        <span className="text-xl font-bold text-[#00ff00] font-['JetBrains_Mono',monospace]">{symbol}</span>
         {timestamp && (
-          <span className="text-xs text-[#00ff00]">Updated {timestamp}</span>
+          <span className="text-xs text-[#00ff00] font-['JetBrains_Mono',monospace]">Updated {timestamp}</span>
         )}
       </div>
 
-      <div className="text-2xl font-bold text-[#00ff00] mb-2">
+      <div className="text-2xl font-bold text-[#00ff00] mb-2 font-['JetBrains_Mono',monospace]">
         ${price.toFixed(2)}
       </div>
 
       <div className={cn(
-        "flex items-center gap-1 text-lg font-bold mb-4",
+        "flex items-center gap-1 text-lg font-bold mb-4 font-['JetBrains_Mono',monospace]",
         isPositive ? "text-[#00ff00]" : "text-red-500"
       )}>
         {isPositive ? <ArrowUpRight size={20} /> : <ArrowDownRight size={20} />}
@@ -65,31 +59,31 @@ export function StockCard({
           <div className="h-px bg-[#003300] my-4" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="p-2 border border-[#003300]">
-              <div className="text-xs text-[#00ff00] mb-1">PREV CLOSE</div>
-              <div className="text-sm font-bold text-[#00ff00]">
+              <div className="text-xs text-[#00ff00] mb-1 font-['JetBrains_Mono',monospace]">PREV CLOSE</div>
+              <div className="text-sm font-bold text-[#00ff00] font-['JetBrains_Mono',monospace]">
                 ${prevClose.toFixed(2)}
               </div>
             </div>
-            {high && (
+            {high !== undefined && (
               <div className="p-2 border border-[#003300]">
-                <div className="text-xs text-[#00ff00] mb-1">HIGH</div>
-                <div className="text-sm font-bold text-[#00ff00]">
+                <div className="text-xs text-[#00ff00] mb-1 font-['JetBrains_Mono',monospace]">HIGH</div>
+                <div className="text-sm font-bold text-[#00ff00] font-['JetBrains_Mono',monospace]">
                   ${high.toFixed(2)}
                 </div>
               </div>
             )}
-            {low && (
+            {low !== undefined && (
               <div className="p-2 border border-[#003300]">
-                <div className="text-xs text-[#00ff00] mb-1">LOW</div>
-                <div className="text-sm font-bold text-[#00ff00]">
+                <div className="text-xs text-[#00ff00] mb-1 font-['JetBrains_Mono',monospace]">LOW</div>
+                <div className="text-sm font-bold text-[#00ff00] font-['JetBrains_Mono',monospace]">
                   ${low.toFixed(2)}
                 </div>
               </div>
             )}
-            {volume && (
+            {volume !== undefined && (
               <div className="p-2 border border-[#003300]">
-                <div className="text-xs text-[#00ff00] mb-1">VOLUME</div>
-                <div className="text-sm font-bold text-[#00ff00]">
+                <div className="text-xs text-[#00ff00] mb-1 font-['JetBrains_Mono',monospace]">VOLUME</div>
+                <div className="text-sm font-bold text-[#00ff00] font-['JetBrains_Mono',monospace]">
                   {formatLargeNumber(volume)}
                 </div>
               </div>
